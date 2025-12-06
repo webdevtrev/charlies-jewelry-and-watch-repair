@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import MapEmbed from './MapEmbed';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: MapEmbed,
 } as Meta;
 
-const Template: Story<any> = (args) => <MapEmbed {...args} />;
+const Template: StoryFn<any> = (args) => <MapEmbed {...args} />;
 
 export const Default = Template.bind({});
 Default.args = { src: 'https://www.google.com/maps/embed?pb=' };

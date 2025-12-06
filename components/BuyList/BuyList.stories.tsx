@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import BuyList from './BuyList';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: BuyList,
 } as Meta;
 
-const Template: Story<any> = (args) => <BuyList {...args} />;
+const Template: StoryFn<any> = (args) => <BuyList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = { categories: ['Gold', 'Diamonds', 'Watches'] };

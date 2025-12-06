@@ -32,7 +32,7 @@ function TypographyDemo({ text }: Args) {
   return (
     <div className="typography-container">
       {styles.map((s) => {
-        const Wrapper = s.key ?? "div";
+        const Wrapper = (s.key || "div") as React.ElementType;
         return (
           <div>
             <div className="typography-label">{s.label}</div>

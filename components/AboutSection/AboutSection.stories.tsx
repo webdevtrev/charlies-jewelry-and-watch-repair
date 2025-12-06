@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import AboutSection from './AboutSection';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: AboutSection,
 } as Meta;
 
-const Template: Story<any> = (args) => <AboutSection {...args} />;
+const Template: StoryFn<any> = (args) => <AboutSection {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

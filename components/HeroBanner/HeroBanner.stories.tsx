@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import HeroBanner from './HeroBanner';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: HeroBanner,
 } as Meta;
 
-const Template: Story<any> = (args) => <HeroBanner {...args} />;
+const Template: StoryFn<any> = (args) => <HeroBanner {...args} />;
 
 export const Sale = Template.bind({});
 Sale.args = {

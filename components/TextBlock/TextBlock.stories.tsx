@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import TextBlock from './TextBlock';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: TextBlock,
 } as Meta;
 
-const Template: Story<any> = (args) => <TextBlock {...args} />;
+const Template: StoryFn<any> = (args) => <TextBlock {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

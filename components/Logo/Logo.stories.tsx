@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import Logo from './Logo';
 
 export default {
@@ -7,6 +7,6 @@ export default {
   component: Logo,
 } as Meta;
 
-const Template: Story<any> = (args) => <Logo {...args} />;
+const Template: StoryFn<any> = (args) => <Logo {...args} />;
 
 export const Default = Template.bind({});

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import Container from './Container';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: Container,
 } as Meta;
 
-const Template: Story<any> = (args) => (
+const Template: StoryFn<any> = (args) => (
   <Container {...args}>
     <div style={{ background: '#f7f7f7', padding: 20 }}>Content inside container</div>
   </Container>

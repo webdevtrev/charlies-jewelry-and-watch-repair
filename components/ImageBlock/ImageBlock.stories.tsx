@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import ImageBlock from './ImageBlock';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: ImageBlock,
 } as Meta;
 
-const Template: Story<any> = (args) => <ImageBlock {...args} />;
+const Template: StoryFn<any> = (args) => <ImageBlock {...args} />;
 
 export const RightImage = Template.bind({});
 RightImage.args = { src: '/placeholder.png', alt: 'Sample' };

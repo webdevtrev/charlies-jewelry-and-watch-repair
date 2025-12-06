@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import FeatureList from './FeatureList';
 import FeatureItem from '../FeatureItem/FeatureItem';
 
@@ -8,7 +8,7 @@ export default {
   component: FeatureList,
 } as Meta;
 
-const Template: Story<any> = (args) => (
+const Template: StoryFn<any> = (args) => (
   <FeatureList {...args}>
     <FeatureItem title="Trusted" description="Over 20 years of experience" />
     <FeatureItem title="Insured" description="Fully insured repairs" />

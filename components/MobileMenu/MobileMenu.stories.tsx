@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import MobileMenu from './MobileMenu';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: MobileMenu,
 } as Meta;
 
-const Template: Story<any> = (args) => <MobileMenu {...args} />;
+const Template: StoryFn<any> = (args) => <MobileMenu {...args} />;
 
 export const Open = Template.bind({});
 Open.args = { open: true };

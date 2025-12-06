@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import Navbar from './Navbar';
 
 export default {
@@ -7,6 +7,6 @@ export default {
   component: Navbar,
 } as Meta;
 
-const Template: Story<any> = (args) => <Navbar {...args} />;
+const Template: StoryFn<any> = (args) => <Navbar {...args} />;
 
 export const Default = Template.bind({});

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import ServiceCard from './ServiceCard';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: ServiceCard,
 } as Meta;
 
-const Template: Story<any> = (args) => <ServiceCard {...args} />;
+const Template: StoryFn<any> = (args) => <ServiceCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = { title: 'Watch Battery', description: 'Quick same-day battery replacement' };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import DecorativeDiamond from './DecorativeDiamond';
 
 export default {
@@ -7,6 +7,6 @@ export default {
   component: DecorativeDiamond,
 } as Meta;
 
-const Template: Story<any> = (args) => <DecorativeDiamond {...args} />;
+const Template: StoryFn<any> = (args) => <DecorativeDiamond {...args} />;
 
 export const Default = Template.bind({});
