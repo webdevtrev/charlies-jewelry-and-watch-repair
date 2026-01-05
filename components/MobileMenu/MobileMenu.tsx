@@ -1,23 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import styles from './MobileMenu.module.css';
+import { FaBars } from "react-icons/fa6";
 
 type Props = {
   open?: boolean;
   onClose?: () => void;
+  onOpen?: () => void;
 };
 
-const MobileMenu: React.FC<Props> = ({ open = false, onClose }) => {
-  if (!open) return null;
+const MobileMenu: React.FC<Props> = ({ open: openProp, onClose, onOpen }) => {
+  const [openInternal, setOpenInternal] = useState<boolean>(!!openProp);
+
+  const isControlled = typeof openProp === 'boolean';
+  const isOpen = isControlled ? !!openProp : openInternal;
+
+  useEffect(() => {
+    if (isControlled) setOpenInternal(!!openProp);
+  }, [openProp, isControlled]);
+
+  const openMenu = () => {
+    if (isControlled) {
+      onOpen?.();
+    } else {
+      setOpenInternal(true);
+    }
+  };
+
+  const closeMenu = () => {
+    if (isControlled) {
+      onClose?.();
+    } else {
+      setOpenInternal(false);
+    }
+  };
+
   return (
-    <div style={{ position: 'fixed', top: 0, right: 0, bottom: 0, width: 280, background: '#fff', boxShadow: '-4px 0 12px rgba(0,0,0,0.1)' }}>
-      <button onClick={onClose} aria-label="Close menu">Close</button>
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
+    <>
+      <button className={styles.hamburger} aria-label={isOpen ? 'Close menu' : 'Open menu'} onClick={isOpen ? closeMenu : openMenu}>
+        <FaBars />
+      </button>
+
+      {isOpen && (
+        <div className={styles.overlay} role="dialog" aria-modal="true">
+          <div className={styles.panel}>
+            <button className={styles.close} onClick={closeMenu} aria-label="Close menu">×</button>
+            <nav>
+              <ul className={styles.list}>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

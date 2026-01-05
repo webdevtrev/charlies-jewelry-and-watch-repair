@@ -1,0 +1,68 @@
+.hamburger{
+  display:block;
+  background:transparent;
+  border:0;
+  cursor:pointer;
+  font-size: 1.5rem;
+}
+
+.hamburgerBox{
+  display:inline-block;
+  width:22px;
+  height:2px;
+  background:#111;
+  position:relative;
+}
+
+.hamburgerBox::before,
+.hamburgerBox::after{
+  content:'';
+  display:block;
+  width:22px;
+  height:2px;
+  background:#111;
+  position:relative;
+  margin-top:6px;
+}
+
+/* Hide the hamburger on larger screens */
+@media (min-width: 769px){
+  .hamburger{ display:none; }
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+  display:flex;
+  justify-content:flex-end;
+  z-index:2000;
+}
+
+.panel{
+  width:280px;
+  height:100%;
+  background:white;
+  box-shadow:-6px 0 18px rgba(0,0,0,0.12);
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+}
+
+.close{
+  background:transparent;
+  border:0;
+  font-size:28px;
+  line-height:1;
+  align-self:flex-end;
+  cursor:pointer;
+}
+
+.list{
+  list-style:none;
+  padding:0;
+  margin:24px 0 0 0;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
