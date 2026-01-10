@@ -223,8 +223,11 @@ p {
 /* =========================================================
    CARDS & SECTIONS
    ========================================================= */
-.section {
-  padding: 4rem 1.5rem;
+.section-alt {
+  background-color: var(--color-bg-card);
+}
+.container {
+  padding: 4rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }

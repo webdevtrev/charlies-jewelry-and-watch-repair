@@ -30,7 +30,7 @@ const ContactSection: React.FC = () => {
                   <br />
                   2727 Fairfield Commons
                   <br />
-                  E237
+                  Suite E237
                   <br />
                   Beavercreek, OH 45431
                 </address>
