@@ -25,6 +25,7 @@
   --color-bg-card: var(--color-white);
 
   /* Borders */
+  --color-border: var(--color-charcoal);
   --color-border-subtle: rgba(162, 156, 149, 0.3);
 
   /* ---------- STATUS COLORS ---------- */
@@ -125,6 +126,7 @@ a {
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
   color: var(--color-text-primary);
+  margin-top: 0;
 }
 
 .display-hero {
@@ -202,6 +204,11 @@ p {
   line-height: var(--lh-caption);
   color: var(--color-text-muted);
 }
+.subtext {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
 
 .overline {
   font-size: var(--fs-overline);
@@ -218,6 +225,8 @@ p {
    ========================================================= */
 .section {
   padding: 4rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .section--muted {

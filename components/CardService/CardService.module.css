@@ -1,0 +1,38 @@
+.card{
+  border:1px solid #e6e4e0;
+  border-radius:10px;
+  padding:20px;
+  background:white;
+  box-shadow:0 1px 0 rgba(0,0,0,0.02);
+  display:flex;
+  flex-direction:column;
+}
+
+.iconRow{
+  display:flex;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.icon :global(div){
+  /* styles applied to IconWrapper container when nested */
+}
+
+.title{
+  font-size:18px;
+  margin:6px 0 10px 0;
+  color:#111;
+}
+
+.description{
+  color:#444;
+  font-size:14px;
+  line-height:1.45;
+  margin:0 0 12px 0;
+}
+
+.learnMore a{
+  color:var(--color-gold-500);
+  text-decoration:none;
+  font-weight:600;
+}

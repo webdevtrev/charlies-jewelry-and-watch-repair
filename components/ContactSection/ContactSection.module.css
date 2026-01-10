@@ -1,0 +1,66 @@
+/* ContactSection styles (intentionally minimal - structure only) */
+.contactSection {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.container {}
+.left {}
+.right {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: 2rem;
+    border-radius:10px;
+}
+.contactList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0;
+}
+.contactList li{
+    display: flex;
+    gap: 1rem;
+}
+.contactList h4, .contactList p {
+    margin-top: 0;
+    margin-bottom: .25rem;
+}
+.hours dl div {
+    display: flex;
+    justify-content: space-between;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.formRow {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.formRow label {
+    font-weight: var(--fw-semibold);
+}
+.formRow input, .formRow textarea, .formRow select {
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: var(--fs-body);
+    font-family: var(--font-body);
+    background-color: var(--color-bg-main);
+
+}
+.submitButton {}
+
+@media (min-width: 768px) {
+    .container {
+        display: flex;
+        gap: 3rem;
+    }
+    .left, .right {
+        flex: 1;
+    }
+}

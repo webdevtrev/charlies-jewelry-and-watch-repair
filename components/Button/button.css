@@ -3,8 +3,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.9rem 1.8rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   background-color: var(--color-charcoal);
   color: var(--color-white);
   font-size: var(--fs-button);
@@ -12,6 +11,7 @@
   letter-spacing: var(--ls-button);
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
+  text-transform: uppercase;
 }
 
 .btn:hover {
@@ -20,7 +20,7 @@
 
 .btn-secondary {
   background-color: var(--color-white);
-  color: var(--color-text-primary);
+  color: var(--color-gold-500);
   border-color: var(--color-gold-500);
 }
 
