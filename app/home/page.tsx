@@ -7,6 +7,10 @@ import { FaGem, FaRegClock, FaTools, FaAward } from "react-icons/fa";
 import image from "../../components/HeroSection/pexels-pixabay-277320.jpg";
 import styles from "./home.module.css";
 
+import watch from "@/components/CardProduct/watch.png";
+import pocketwatch from "@/components/CardProduct/pocketwatch.png";
+import CardProduct from "@/components/CardProduct/CardProduct";
+
 const video = "/videos/hero.mp4";
 
 import workbench from "@/assets/workbench.png";
@@ -39,6 +43,24 @@ const awards = [
   "40 years of combined experience",
   "Better Business Bureau Accredited",
 ];
+const featuredProducts = [
+  {
+    title: "Vintage Pocket Watch",
+    description:
+      "A beautifully restored vintage pocket watch with intricate engraving and a durable movement.",
+    imageSrc: pocketwatch.src,
+    imageAlt: "Vintage pocket watch",
+    price: "249",
+  },
+  {
+    title: "Antique Gold Watch",
+    description:
+      "This antique gold watch features hand-polished casing and a sapphire crystal. Fully serviced and guaranteed for a year. Perfect for collectors and everyday wear.",
+    imageSrc: watch.src,
+    imageAlt: "Antique gold watch",
+    price: "1450",
+  },
+];
 export default function Home() {
   return (
     <main>
@@ -52,6 +74,23 @@ export default function Home() {
           playsInline: true,
         }}
       />
+      <section>
+        <div className="container">
+          <h2 className={styles.featuredProductsHeading}>Featured Products</h2>
+          <div className={styles.products}>
+            {featuredProducts.map((product, index) => (
+              <CardProduct
+                key={index}
+                title={product.title}
+                description={product.description}
+                imageSrc={product.imageSrc}
+                imageAlt={product.imageAlt}
+                price={product.price}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
       <section aria-labelledby="services-heading" className="section">
         <div className="container">
           <div className={styles.serviceIntro}>

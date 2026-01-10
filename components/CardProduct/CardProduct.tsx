@@ -12,13 +12,22 @@ export default function CardProduct({
   imageAlt: string;
   price: string;
 }) {
+  function formatPrice(price: string) {
+    const num = Number(price);
+    if (isNaN(num)) return price;
+    return num.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+    });
+  }
   return (
-    <div>
-      <div className={styles.imageWrapper}>
+    <div className={styles.wrapper}>
+      <div className={styles.image}>
         <img src={imageSrc} alt={imageAlt} />
-        <span>{price}</span>
+        <span>{formatPrice(price)}</span>
       </div>
-      <div className={styles.productDetails}>
+      <div className={styles.details}>
         <h3>{title}</h3>
         <p>{description}</p>
       </div>

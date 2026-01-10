@@ -10,7 +10,7 @@ export default {
 } as Meta;
 
 const Template: StoryFn<any> = (args) => (
-  <div style={{ width: "500px" }}>
+  <div style={{ width: "300px" }}>
     <CardProduct {...args} />
   </div>
 );

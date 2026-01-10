@@ -12,7 +12,9 @@
   display: flex;
   align-items: flex-end;
 }
-  
+.wrapper h1, .wrapper p, .wrapper a{
+  color: #fff;
+}
 .videoWrap{
   position: absolute;
   inset: 0;
@@ -36,7 +38,7 @@
 .videoOverlay{
   position: absolute;
   inset: 0;
-  background: linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0.0));
+  background: linear-gradient(to left, rgba(0,0,0,0.9), rgba(0,0,0,0.0));
   z-index: 1;
   pointer-events: none;
 }
@@ -105,6 +107,6 @@
 @media (max-width: 900px){
   .inner{ grid-template-columns:1fr; }
   .decor{ display:none; }
-  .videoOverlay{ background: linear-gradient(to top, rgba(255,255,255,0.9), rgba(255,255,255,0.0)); }
+  .videoOverlay{ background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.0)); }
 }
 

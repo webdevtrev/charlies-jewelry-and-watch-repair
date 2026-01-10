@@ -29,6 +29,21 @@
 .award svg {
     color: var(--color-gold-500);
 }
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    > * {
+        flex: 1 1 calc(50% - 2rem);
+        max-width: min(350px, 100%);
+        min-width: 250px;
+    }
+}
+.featuredProductsHeading{
+    text-align: center;
+    margin-bottom: 2rem;
+}   
 @media (min-width: 1000px) {
     .experience {
         flex-direction: row;

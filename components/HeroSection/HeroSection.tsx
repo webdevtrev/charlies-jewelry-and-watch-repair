@@ -34,7 +34,7 @@ const HeroSection: React.FC<Props> = ({
   const bgStyle: React.CSSProperties | undefined =
     !backgroundVideo && backgroundImage
       ? {
-          backgroundImage: `linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url(${backgroundImage.src})`,
+          backgroundImage: `linear-gradient(to left, rgba(0,0,0,0.9), rgba(0,0,0,0)), url(${backgroundImage.src})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
