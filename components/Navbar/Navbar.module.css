@@ -28,6 +28,25 @@
 .mobileMenu {
   display: block;
 }
+.link {
+  text-decoration: none;
+  color: inherit;
+  padding: 8px 2px;
+}
+.link::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0;
+  background-color: transparent;
+  transition: width 0.3s ease;
+}
+.link:hover::after {
+  content: "";
+  display: block;
+  width: 100%;
+  background-color: black;
+}
 
 /* Hide desktop menu on small screens */
 @media (max-width: 768px) {

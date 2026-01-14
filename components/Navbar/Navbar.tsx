@@ -21,7 +21,9 @@ const Navbar: React.FC<Props> = ({
       <ul className={styles.desktopMenu}>
         {menuItems.map((m) => (
           <li key={m}>
-            <a href={`/${m.toLowerCase()}`}>{m}</a>
+            <a href={`/${m.toLowerCase()}`} className={styles.link}>
+              {m}
+            </a>
           </li>
         ))}
       </ul>
