@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import HeroSection from "./HeroSection";
-import banner from "./pexels-pixabay-277320.jpg";
+import banner from "/images/hero.jpg";
 const video = "/videos/hero.mp4";
 export default {
   title: "Hero Area/HeroSection",

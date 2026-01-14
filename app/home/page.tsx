@@ -3,8 +3,6 @@ import ContactSection from "@/components/ContactSection/ContactSection";
 import CardService from "@/components/CardService/CardService";
 import HeroSection from "@/components/HeroSection/HeroSection";
 import { FaGem, FaRegClock, FaTools, FaAward } from "react-icons/fa";
-
-import image from "../../components/HeroSection/pexels-pixabay-277320.jpg";
 import styles from "./home.module.css";
 
 import watch from "@/components/CardProduct/watch.png";
@@ -12,6 +10,7 @@ import pocketwatch from "@/components/CardProduct/pocketwatch.png";
 import CardProduct from "@/components/CardProduct/CardProduct";
 
 const video = "/videos/hero.mp4";
+const thumbnail = "/videos/thumbnail.tiff";
 
 import workbench from "@/assets/workbench.png";
 
@@ -65,11 +64,11 @@ export default function Home() {
   return (
     <main>
       <HeroSection
-        headline="Every item is precious"
+        headline="Every Item is Precious"
         subtext="Quality Craftsmanship, Timeless Elegance"
         backgroundVideo={{
           src: video,
-          poster: image.src,
+          poster: thumbnail,
           muted: true,
           playsInline: true,
         }}
@@ -123,23 +122,23 @@ export default function Home() {
           <div>
             <h2>Master Craftsman, Family Trusted</h2>
             <p>
-              For over 40 years, our family-owned business has been the trusted
-              choice for jewelry and watch repair in the community. Spanning
-              three generations, our craft has been passed down through hands-on
-              mentorship, time-honored techniques, and a shared respect for
-              traditional workmanship.
+              Built on more than 40 years of hands-on experience across three
+              generations, our family-owned jewelry and watch repair business
+              brings time-honored craftsmanship to every piece we service. The
+              skills behind our work were shaped long before our doors
+              officially opened, passed down through decades of real-world
+              practice and careful mentorship.
             </p>
             <p>
-              As a proud Better Business Bureau-accredited business, we believe
-              trust is earned through honesty, transparency, and standing behind
-              every piece we service. This commitment has guided our family for
-              decades and continues to shape the way we care for each item
-              entrusted to us.
+              As a proud Better Business Bureau-accredited business, we are
+              committed to honest service, transparency, and standing behind our
+              work. These values have guided our family for generations and
+              continue to define the way we serve our customers today.
             </p>
             <p>
-              Whether it's a cherished heirloom needing delicate restoration or
-              a modern timepiece requiring expert attention, every piece is
-              treated with patience, precision, and respect.
+              Whether it's a cherished heirloom requiring delicate restoration
+              or a modern timepiece needing expert care, each item is treated
+              with patience, precision, and respect.
             </p>
             <div className={styles.awards}>
               {awards.map((award, index) => (

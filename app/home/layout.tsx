@@ -3,6 +3,7 @@ import { Lora } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
+import Footer from "@/components/Footer/Footer";
 
 const lora = Lora({
   variable: "--font-lora",
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={`${lora.variable}`}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
