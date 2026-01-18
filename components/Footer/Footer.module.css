@@ -70,9 +70,6 @@
     align-items: center;
     gap: 2rem;
   }
-  .social {
-    /* justify-content: flex-start; */
-  }
   .nav {
     flex-direction: row;
   }

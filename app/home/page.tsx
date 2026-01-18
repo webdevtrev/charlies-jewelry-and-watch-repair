@@ -60,19 +60,28 @@ const featuredProducts = [
     price: "1450",
   },
 ];
+const heroContent = {
+  headline: "Every Item is Precious",
+  subtext: "Quality Craftsmanship, Timeless Elegance",
+  backgroundVideo: {
+    src: "/videos/hero.mp4",
+    poster: "/videos/thumbnail.tiff",
+    muted: true,
+    playsInline: true,
+  },
+};
+const experience = {
+  title: "Master Craftsman, Family Trusted",
+  paragraphs: [
+    "Built on more than 40 years of hands-on experience across three generations, our family-owned jewelry and watch repair business brings time-honored craftsmanship to every piece we service. The skills behind our work were shaped long before our doors officially opened, passed down through decades of real-world practice and careful mentorship.",
+    "As a proud Better Business Bureau-accredited business, we are committed to honest service, transparency, and standing behind our work. These values have guided our family for generations and continue to define the way we serve our customers today.",
+    "Whether it's a cherished heirloom requiring delicate restoration or a modern timepiece needing expert care, each item is treated with patience, precision, and respect.",
+  ],
+};
 export default function Home() {
   return (
     <main>
-      <HeroSection
-        headline="Every Item is Precious"
-        subtext="Quality Craftsmanship, Timeless Elegance"
-        backgroundVideo={{
-          src: video,
-          poster: thumbnail,
-          muted: true,
-          playsInline: true,
-        }}
-      />
+      <HeroSection {...heroContent} />
       <section>
         <div className="container">
           <h2 className={styles.featuredProductsHeading}>Featured Products</h2>
@@ -114,32 +123,13 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section
-        aria-labelledby="contact-heading"
-        className="section section-alt"
-      >
+      <section className="section section-alt">
         <div className={"container " + styles.experience}>
           <div>
-            <h2>Master Craftsman, Family Trusted</h2>
-            <p>
-              Built on more than 40 years of hands-on experience across three
-              generations, our family-owned jewelry and watch repair business
-              brings time-honored craftsmanship to every piece we service. The
-              skills behind our work were shaped long before our doors
-              officially opened, passed down through decades of real-world
-              practice and careful mentorship.
-            </p>
-            <p>
-              As a proud Better Business Bureau-accredited business, we are
-              committed to honest service, transparency, and standing behind our
-              work. These values have guided our family for generations and
-              continue to define the way we serve our customers today.
-            </p>
-            <p>
-              Whether it's a cherished heirloom requiring delicate restoration
-              or a modern timepiece needing expert care, each item is treated
-              with patience, precision, and respect.
-            </p>
+            <h2>{experience.title}</h2>
+            {experience.paragraphs.map((para, index) => (
+              <p key={index}>{para}</p>
+            ))}
             <div className={styles.awards}>
               {awards.map((award, index) => (
                 <div key={index} className={styles.award}>
