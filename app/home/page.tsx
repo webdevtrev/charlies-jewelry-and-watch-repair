@@ -2,17 +2,14 @@ import React from "react";
 import ContactSection from "@/components/ContactSection/ContactSection";
 import CardService from "@/components/CardService/CardService";
 import HeroSection from "@/components/HeroSection/HeroSection";
+import CardProduct from "@/components/CardProduct/CardProduct";
 import { FaGem, FaRegClock, FaTools, FaAward } from "react-icons/fa";
 import styles from "./home.module.css";
 
-import watch from "@/components/CardProduct/watch.png";
-import pocketwatch from "@/components/CardProduct/pocketwatch.png";
-import CardProduct from "@/components/CardProduct/CardProduct";
-
-const video = "/videos/hero.mp4";
-const thumbnail = "/videos/thumbnail.tiff";
-
-import workbench from "@/assets/workbench.png";
+import { client } from "@/sanity/lib/client";
+import { homePageQuery, contactInformationQuery } from "@/sanity/lib/queries";
+import { PortableText } from "@portabletext/react";
+import { ptComponents } from "@/components/PortableText/portableTextComponents";
 
 const services = [
   {
@@ -37,68 +34,65 @@ const services = [
     icon: <FaTools />,
   },
 ];
-const awards = [
-  "Family-owned for three generations",
-  "40 years of combined experience",
-  "Better Business Bureau Accredited",
-];
-const featuredProducts = [
-  {
-    title: "Vintage Pocket Watch",
-    description:
-      "A beautifully restored vintage pocket watch with intricate engraving and a durable movement.",
-    imageSrc: pocketwatch.src,
-    imageAlt: "Vintage pocket watch",
-    price: "249",
-  },
-  {
-    title: "Antique Gold Watch",
-    description:
-      "This antique gold watch features hand-polished casing and a sapphire crystal. Fully serviced and guaranteed for a year. Perfect for collectors and everyday wear.",
-    imageSrc: watch.src,
-    imageAlt: "Antique gold watch",
-    price: "1450",
-  },
-];
-const heroContent = {
-  headline: "Every Item is Precious",
-  subtext: "Quality Craftsmanship, Timeless Elegance",
-  backgroundVideo: {
-    src: "/videos/hero.mp4",
-    poster: "/videos/thumbnail.tiff",
-    muted: true,
-    playsInline: true,
-  },
-};
-const experience = {
-  title: "Master Craftsman, Family Trusted",
-  paragraphs: [
-    "Built on more than 40 years of hands-on experience across three generations, our family-owned jewelry and watch repair business brings time-honored craftsmanship to every piece we service. The skills behind our work were shaped long before our doors officially opened, passed down through decades of real-world practice and careful mentorship.",
-    "As a proud Better Business Bureau-accredited business, we are committed to honest service, transparency, and standing behind our work. These values have guided our family for generations and continue to define the way we serve our customers today.",
-    "Whether it's a cherished heirloom requiring delicate restoration or a modern timepiece needing expert care, each item is treated with patience, precision, and respect.",
-  ],
-};
-export default function Home() {
+
+async function getHomeData() {
+  return await client.fetch(homePageQuery);
+}
+
+async function getContactInformation() {
+  return await client.fetch(contactInformationQuery);
+}
+
+export default async function Home() {
+  const data = await getHomeData();
+  const contactInfo = await getContactInformation();
+
+  const heroContent = {
+    headline: data?.hero?.headline,
+    subtext: data?.hero?.subtext,
+    backgroundImage: data?.hero?.backgroundImage
+      ? { src: data.hero.backgroundImage }
+      : undefined,
+    backgroundVideo: data?.hero?.backgroundVideo
+      ? {
+          src: data.hero.backgroundVideo.videoUrl,
+          poster: data.hero.backgroundVideo.posterUrl,
+        }
+      : undefined,
+  };
+  const featuredProducts = data?.featuredProducts ?? [];
+  const awards = data?.awards ?? [];
+  const experience = data?.experience ?? { title: "", paragraphs: [] };
+  console.log("Home page data:", data);
+  console.log("Featured Products:", featuredProducts);
+  console.log("Experience Section:", experience);
+
   return (
     <main>
       <HeroSection {...heroContent} />
-      <section>
-        <div className="container">
-          <h2 className={styles.featuredProductsHeading}>Featured Products</h2>
-          <div className={styles.products}>
-            {featuredProducts.map((product, index) => (
-              <CardProduct
-                key={index}
-                title={product.title}
-                description={product.description}
-                imageSrc={product.imageSrc}
-                imageAlt={product.imageAlt}
-                price={product.price}
-              />
-            ))}
+
+      {featuredProducts?.length > 0 && (
+        <section>
+          <div className="container">
+            <h2 className={styles.featuredProductsHeading}>
+              Featured Products
+            </h2>
+            <div className={styles.products}>
+              {featuredProducts?.map((product: any) => (
+                <CardProduct
+                  key={product._id}
+                  title={product.name}
+                  description={product.shortDescription}
+                  imageSrc={product.imageUrl}
+                  imageAlt={product.name}
+                  price={product.price}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
       <section aria-labelledby="services-heading" className="section">
         <div className="container">
           <div className={styles.serviceIntro}>
@@ -111,7 +105,7 @@ export default function Home() {
             </p>
           </div>
           <div className={styles.servicesGrid}>
-            {services.map((service, index) => (
+            {services?.map((service, index) => (
               <CardService
                 key={index}
                 title={service.title}
@@ -123,15 +117,19 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section className="section section-alt">
         <div className={"container " + styles.experience}>
           <div>
             <h2>{experience.title}</h2>
-            {experience.paragraphs.map((para, index) => (
-              <p key={index}>{para}</p>
-            ))}
+            {experience?.paragraphs && experience.paragraphs.length > 0 ? (
+              <PortableText
+                value={experience.paragraphs}
+                components={ptComponents}
+              />
+            ) : null}
             <div className={styles.awards}>
-              {awards.map((award, index) => (
+              {awards?.map((award: string, index: number) => (
                 <div key={index} className={styles.award}>
                   <FaAward size={24} />
                   <span>{award}</span>
@@ -139,10 +137,18 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <img src={workbench.src} alt="Workbench with jewelry tools" />
+          {experience.imageUrl && (
+            <div className={styles.experienceImageContainer}>
+              <img
+                src={experience.imageUrl}
+                alt={experience.title || "Experience image"}
+              />
+            </div>
+          )}
         </div>
       </section>
-      <ContactSection />
+
+      <ContactSection contactInfo={contactInfo} />
     </main>
   );
 }

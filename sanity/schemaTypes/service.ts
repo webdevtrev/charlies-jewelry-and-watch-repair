@@ -1,69 +1,74 @@
-import {defineType, defineField} from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export default defineType({
-  name: 'services',
-  title: 'Services',
-  type: 'document',
+  name: "services",
+  title: "Services",
+  type: "document",
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
-      type: 'string',
+      name: "title",
+      title: "Title",
+      type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: { source: 'name', maxLength: 96 },
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "name", maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'shortDescription',
-      title: 'Short Description',
-      type: 'text',
-      description: 'A brief summary displayed in lists and cards',
+      name: "subtitle",
+      title: "Subtitle",
+      type: "text",
+      description: "A brief summary displayed in lists and cards",
     }),
     defineField({
-      name: 'icon',
-      title: 'Icon',
-      type: 'string',
-      description: 'Optional icon identifier (e.g., FaGem) for frontend mapping',
+      name: "features",
+      title: "Features",
+      type: "array",
+      of: [
+        {
+          type: "string",
+          title: "Feature Name",
+        },
+      ],
+      description: "List of detailed features offered under this main service",
     }),
     defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'array',
-      of: [{ type: 'block' }],
+      name: "price",
+      title: "Price",
+      type: "number",
+      description: "If blank it will show as 'Custom quote' on the page",
     }),
     defineField({
-      name: 'order',
-      title: 'Order',
-      type: 'number',
-      description: 'Optional manual sort order (lower numbers display first)',
-    }),
-    defineField({
-      name: 'featured',
-      title: 'Featured',
-      type: 'boolean',
-      description: 'Mark to include on homepage featured list',
-      initialValue: false,
+      name: "order",
+      title: "Order",
+      type: "number",
+      description: "Numeric order for sorting services in lists",
     }),
   ],
   orderings: [
     {
-      title: 'Order, name',
-      name: 'orderAscNameAsc',
+      title: "Order, name",
+      name: "orderAscNameAsc",
       by: [
-        { field: 'order', direction: 'asc' },
-        { field: 'name', direction: 'asc' },
+        { field: "order", direction: "asc" },
+        { field: "name", direction: "asc" },
       ],
     },
   ],
   preview: {
     select: {
-      title: 'name',
-      subtitle: 'shortDescription',
+      title: "title",
+      subtitle: "subtitle",
     },
   },
-})
+});

@@ -6,6 +6,14 @@ export default defineType({
   type: "document",
   fields: [
     defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      initialValue: "Home",
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: "hero",
       title: "Hero",
       type: "heroSection",
@@ -50,10 +58,4 @@ export default defineType({
       of: [{ type: "string" }],
     }),
   ],
-  preview: {
-    select: {
-      title: "hero.headline",
-      media: "hero.backgroundImage",
-    },
-  },
 });

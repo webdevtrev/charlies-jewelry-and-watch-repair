@@ -1,19 +1,37 @@
 import HeroSection from "@/components/HeroSection/HeroSection";
 import ContactSection from "@/components/ContactSection/ContactSection";
-export default function Contact() {
-  const HeroContent = {
-    headline: "Get in Touch with Charlie's Jewelry & Watch Repair",
-    subtext:
-      "Have questions or need assistance? Our friendly team is here to help with all your jewelry and watch repair needs.",
-    backgroundImage: {
-      src: "/images/contact/hero.jpg",
-      alt: "customer service representative assisting a customer",
-    },
+import { client } from "@/sanity/lib/client";
+import {
+  contactInformationQuery,
+  contactPageQuery,
+} from "@/sanity/lib/queries";
+
+async function getContactData() {
+  const [contactInfo, page] = await Promise.all([
+    client.fetch(contactInformationQuery),
+    client.fetch(contactPageQuery),
+  ]);
+  return { contactInfo, page };
+}
+
+export default async function Contact() {
+  const { contactInfo, page } = await getContactData();
+  const hero = page?.hero ?? {
+    headline: "Get in Touch",
+    subtext: "",
+    backgroundImage: null,
   };
+
   return (
     <main>
-      <HeroSection {...HeroContent} />
-      <ContactSection />
+      <HeroSection
+        headline={hero.headline}
+        subtext={hero.subtext}
+        backgroundImage={
+          hero.backgroundImage ? { src: hero.backgroundImage } : undefined
+        }
+      />
+      <ContactSection contactInfo={contactInfo} />
     </main>
   );
 }

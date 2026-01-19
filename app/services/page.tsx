@@ -1,16 +1,15 @@
 import styles from "./page.module.css";
 import HeroSection from "@/components/HeroSection/HeroSection";
+import { client } from "@/sanity/lib/client";
+import { servicesPageQuery } from "@/sanity/lib/queries";
 
-export default function Services() {
-  const HeroContent = {
-    headline: "Expert Services for Your Treasured Pieces",
-    subtext:
-      "From delicate repairs to custom creations, our master craftsmen bring decades of expertise to every project.",
-    backgroundImage: {
-      src: "/images/services/services-hero.jpg",
-      alt: "repair man at a workbench",
-    },
-  };
+async function getServicesPage() {
+  return client.fetch(servicesPageQuery);
+}
+
+export default async function Services() {
+  const data = await getServicesPage();
+  const hero = data?.hero;
   const services = [
     {
       id: "watch-repair",
@@ -68,58 +67,29 @@ export default function Services() {
       },
     },
   ];
-  const frequentlyAskedQuestions = [
-    {
-      question: "How long does typical repair take?",
-      answer:
-        "Repair timelines vary by service — simple repairs like battery replacement or ring sizing typically take a few days, while complex restorations can take several weeks. We'll provide an estimated timeline during your consultation.",
-    },
-    {
-      question: "Do you offer warranties on repair?",
-      answer:
-        "Yes — we provide a limited warranty covering workmanship. Specific terms depend on the service performed; details will be provided on your receipt or during consultation.",
-    },
-    {
-      question: "What if I don't know what repairs are needed?",
-      answer:
-        "Bring your piece to our studio for a free evaluation. Our master craftsmen will assess the item, explain the necessary repairs, and provide a detailed estimate.",
-    },
-  ];
-  const processSteps = [
-    {
-      title: "Consultation",
-      description:
-        "Bring your item to our studio for a free evaluation. We'll discuss the issue, timeline, and provide a detailed estimate.",
-    },
-    {
-      title: "Expert Assessment",
-      description:
-        "Our master craftsmen examine your piece thoroughly, identifying all necessary repairs and restoration work.",
-    },
-    {
-      title: "Skilled Restoration",
-      description:
-        "Using traditional techniques and modern tools, we carefully restore your treasured piece to its original beauty.",
-    },
-    {
-      title: "Quality Assurance",
-      description:
-        "Each piece undergoes rigorous inspection to ensure it meets our exacting standards before return to you.",
-    },
-  ];
+  const frequentlyAskedQuestions = data?.frequentlyAskedQuestions ?? [];
+  const proccessIntro = data?.processesIntro;
+  const processSteps = data?.processSteps ?? [];
   function padZeroOnLeft(num: number): string {
     return num.toString().padStart(2, "0");
   }
+  console.log(hero);
   return (
     <div>
-      <HeroSection {...HeroContent} />
+      {hero && (
+        <HeroSection
+          headline={hero.headline}
+          subtext={hero.subtext}
+          backgroundImage={
+            hero.backgroundImage ? { src: hero.backgroundImage } : undefined
+          }
+        />
+      )}
       <section className={styles.servicesSection}>
         <div className="container">
           <div className={styles.sectionTitle}>
-            <h2>Our Services</h2>
-            <p className="p-large muted">
-              Comprehensive care for fine jewelry and timepieces
-            </p>
+            <h2>{data?.serviceIntro?.title}</h2>
+            <p className="p-large muted">{data?.serviceIntro?.subtitle}</p>
           </div>
           <div className={styles.servicesGrid}>
             {services.map((service) => (
@@ -155,13 +125,11 @@ export default function Services() {
       <section className="section--muted">
         <div className="container">
           <div className={styles.sectionTitle}>
-            <h2>Our Process</h2>
-            <p className="p-large muted">
-              A seamless journey from consultation to completion
-            </p>
+            <h2>{proccessIntro?.title}</h2>
+            <p className="p-large muted">{proccessIntro?.subtitle}</p>
           </div>
           <div className={styles.processSteps}>
-            {processSteps.map((step, index) => (
+            {processSteps.map((step: any, index: number) => (
               <div key={index} className={styles.processStep + " card"}>
                 <span className="h2">{padZeroOnLeft(index + 1)}</span>
                 <h3 className="h3">{step.title}</h3>
@@ -180,7 +148,7 @@ export default function Services() {
             </p>
           </div>
           <div className={styles.faqSection}>
-            {frequentlyAskedQuestions.map((faq, index) => (
+            {frequentlyAskedQuestions.map((faq: any, index: number) => (
               <div key={index} className={styles.faqItem + " card"}>
                 <h3 className="h4">{faq.question}</h3>
                 <p className="p">{faq.answer}</p>
