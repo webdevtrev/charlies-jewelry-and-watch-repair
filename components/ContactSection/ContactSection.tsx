@@ -112,7 +112,7 @@ const ContactSection: React.FC<{ contactInfo?: ContactInfo }> = ({
         <aside className={styles.right} aria-labelledby="consult-heading">
           <h3 id="consult-heading">Request Consultation</h3>
 
-          <form className={styles.form} name="contact" netlify>
+          <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
             <div className={styles.formRow}>
               <label htmlFor="name">Name</label>
               <input id="name" name="name" type="text" />
