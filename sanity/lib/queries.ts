@@ -47,3 +47,21 @@ export const contactPageQuery = `*[_type == "contactPage"][0]{
   },
   body
 }`;
+
+export const servicesQuery = `*[_type == "services"]|order(order asc, title asc){
+  _id,
+  title,
+  subtitle,
+  features,
+  price,
+  image,
+  "slug": slug.current,
+  order
+}`;
+export const minimalServicesQuery = `*[_type == "services"]|order(order asc, title asc){
+  _id,
+  title,
+  subtitle,
+  "slug": slug.current,
+  order
+}`;
