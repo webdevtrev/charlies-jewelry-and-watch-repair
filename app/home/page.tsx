@@ -40,7 +40,7 @@ const services = [
     icon: <FaTools />,
   },
 ];
-const icons = {
+const icons: Record<string, React.ReactElement> = {
   "jewelry-repair": <FaGem />,
   "watch-repair-and-restoration": <IoMdWatch />,
   "clock-repair-battery-operated-and-mechanical": <FaRegClock />,
@@ -126,7 +126,7 @@ export default async function Home() {
                 title={service.title}
                 description={service.subtitle}
                 link={"/services#" + service.slug}
-                icon={icons?.[service.slug] || <FaTools />}
+                icon={icons?.[service.slug] ?? <FaTools />}
               />
             ))}
           </div>
