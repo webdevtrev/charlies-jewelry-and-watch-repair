@@ -7,6 +7,7 @@ import contactInformation from "./contactInformation";
 import servicesPage from "./servicesPage";
 import service from "./service";
 import product from "./product";
+import image from "./image";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -18,5 +19,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     servicesPage,
     service,
     product,
+    image,
   ],
 };

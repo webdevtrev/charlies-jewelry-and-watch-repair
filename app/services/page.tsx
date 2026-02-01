@@ -1,14 +1,36 @@
 import styles from "./page.module.css";
 import HeroSection from "@/components/HeroSection/HeroSection";
 import { client } from "@/sanity/lib/client";
-import { servicesPageQuery } from "@/sanity/lib/queries";
+import { servicesPageQuery, servicesQuery } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
 
 async function getServicesPage() {
   return client.fetch(servicesPageQuery);
 }
 
+async function getServices() {
+  console.log("test");
+  return client.fetch(servicesQuery);
+}
+interface Service {
+  _id: string;
+  title: string;
+  subtitle: string;
+  features: string[];
+  price: number;
+  image: {
+    url: string;
+    crop?: object;
+    hotspot?: { x: number; y: number };
+  };
+  slug: string;
+  order: number;
+}
+
 export default async function Services() {
   const data = await getServicesPage();
+  const servicesData = await getServices();
+  console.log(servicesData);
   const hero = data?.hero;
   const services = [
     {
@@ -73,7 +95,12 @@ export default async function Services() {
   function padZeroOnLeft(num: number): string {
     return num.toString().padStart(2, "0");
   }
-  console.log(hero);
+  function formatPrice(price: number): string {
+    if (price % 1 === 0) {
+      return `$${price.toFixed(0)}`;
+    }
+    return `$${price.toFixed(2)}`;
+  }
   return (
     <div>
       {hero && (
@@ -92,14 +119,25 @@ export default async function Services() {
             <p className="p-large muted">{data?.serviceIntro?.subtitle}</p>
           </div>
           <div className={styles.servicesGrid}>
-            {services.map((service) => (
-              <div key={service.id} className={styles.serviceCard}>
+            {servicesData.map((service: Service) => (
+              <div
+                key={service._id}
+                className={styles.serviceCard}
+                id={service.slug}
+              >
                 <div className={styles.imageContainer}>
-                  <img
-                    src={service.image.src}
-                    alt={service.image.alt}
-                    className={styles.serviceImage}
-                  />
+                  {service.image && (
+                    <img
+                      src={urlFor(service.image).url()}
+                      alt={service.title}
+                      className={styles.serviceImage}
+                      style={{
+                        objectPosition: service.image.hotspot
+                          ? `${service.image.hotspot.x * 100}% ${service.image.hotspot.y * 100}%`
+                          : "center",
+                      }}
+                    />
+                  )}
                 </div>
                 <div>
                   <h3 className="h2">{service.title}</h3>
@@ -112,9 +150,9 @@ export default async function Services() {
                     ))}
                   </ul>
                   <p className={styles.startingAt + " special-note"}>
-                    {service.startingAt !== null
-                      ? `Starting at $${service.startingAt}`
-                      : service.priceLabel}
+                    {service.price !== null
+                      ? `Starting at ${formatPrice(service.price)}`
+                      : "Custom quote"}
                   </p>
                 </div>
               </div>

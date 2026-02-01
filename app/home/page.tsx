@@ -4,10 +4,16 @@ import CardService from "@/components/CardService/CardService";
 import HeroSection from "@/components/HeroSection/HeroSection";
 import CardProduct from "@/components/CardProduct/CardProduct";
 import { FaGem, FaRegClock, FaTools, FaAward } from "react-icons/fa";
+import { IoMdWatch } from "react-icons/io";
 import styles from "./home.module.css";
+import { Service } from "@/types/services";
 
 import { client } from "@/sanity/lib/client";
-import { homePageQuery, contactInformationQuery } from "@/sanity/lib/queries";
+import {
+  homePageQuery,
+  contactInformationQuery,
+  minimalServicesQuery,
+} from "@/sanity/lib/queries";
 import { PortableText } from "@portabletext/react";
 import { ptComponents } from "@/components/PortableText/portableTextComponents";
 
@@ -34,6 +40,12 @@ const services = [
     icon: <FaTools />,
   },
 ];
+const icons = {
+  "jewelry-repair": <FaGem />,
+  "watch-repair-and-restoration": <IoMdWatch />,
+  "clock-repair-battery-operated-and-mechanical": <FaRegClock />,
+  "custom-design": <FaTools />,
+};
 
 async function getHomeData() {
   return await client.fetch(homePageQuery);
@@ -43,9 +55,14 @@ async function getContactInformation() {
   return await client.fetch(contactInformationQuery);
 }
 
+async function getServices() {
+  return await client.fetch(minimalServicesQuery);
+}
+
 export default async function Home() {
   const data = await getHomeData();
   const contactInfo = await getContactInformation();
+  const servicesData = await getServices();
 
   const heroContent = {
     headline: data?.hero?.headline,
@@ -63,9 +80,7 @@ export default async function Home() {
   const featuredProducts = data?.featuredProducts ?? [];
   const awards = data?.awards ?? [];
   const experience = data?.experience ?? { title: "", paragraphs: [] };
-  console.log("Home page data:", data);
-  console.log("Featured Products:", featuredProducts);
-  console.log("Experience Section:", experience);
+  console.log("Home page data:", servicesData);
 
   return (
     <main>
@@ -105,13 +120,13 @@ export default async function Home() {
             </p>
           </div>
           <div className={styles.servicesGrid}>
-            {services?.map((service, index) => (
+            {servicesData?.map((service: Service) => (
               <CardService
-                key={index}
+                key={service._id}
                 title={service.title}
-                description={service.description}
-                link={service.link}
-                icon={service.icon}
+                description={service.subtitle}
+                link={"/services#" + service.slug}
+                icon={icons?.[service.slug] || <FaTools />}
               />
             ))}
           </div>
