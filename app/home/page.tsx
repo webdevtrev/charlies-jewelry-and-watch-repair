@@ -57,7 +57,6 @@ export default async function Home() {
   const featuredProducts = data?.featuredProducts ?? [];
   const awards = data?.awards ?? [];
   const experience = data?.experience ?? { title: "", paragraphs: [] };
-  console.log("Home page data:", servicesData);
 
   return (
     <main>
