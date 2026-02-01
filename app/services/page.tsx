@@ -30,7 +30,6 @@ interface Service {
 export default async function Services() {
   const data = await getServicesPage();
   const servicesData = await getServices();
-  console.log(servicesData);
   const hero = data?.hero;
 
   const frequentlyAskedQuestions = data?.frequentlyAskedQuestions ?? [];
