@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection/HeroSection";
 import { client } from "@/sanity/lib/client";
 import { servicesPageQuery, servicesQuery } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+import { Service } from "@/types/services";
 
 async function getServicesPage() {
   return client.fetch(servicesPageQuery);
@@ -10,20 +11,6 @@ async function getServicesPage() {
 
 async function getServices() {
   return client.fetch(servicesQuery);
-}
-interface Service {
-  _id: string;
-  title: string;
-  subtitle: string;
-  features: string[];
-  price: number;
-  image: {
-    url: string;
-    crop?: object;
-    hotspot?: { x: number; y: number };
-  };
-  slug: string;
-  order: number;
 }
 
 export default async function Services() {
@@ -87,12 +74,12 @@ export default async function Services() {
                     {service.subtitle}
                   </p>
                   <ul className={styles.featuresList + " checkList"}>
-                    {service.features.map((feature, index) => (
+                    {service?.features?.map((feature, index) => (
                       <li key={index}>{feature}</li>
                     ))}
                   </ul>
                   <p className={styles.startingAt + " special-note"}>
-                    {service.price !== null
+                    {service.price
                       ? `Starting at ${formatPrice(service.price)}`
                       : "Custom quote"}
                   </p>
