@@ -32,63 +32,7 @@ export default async function Services() {
   const servicesData = await getServices();
   console.log(servicesData);
   const hero = data?.hero;
-  const services = [
-    {
-      id: "watch-repair",
-      title: "Watch Repair & Restoration",
-      subtitle: "Expert servicing for all types of timepieces",
-      features: [
-        "Battery replacement and movement servicing",
-        "Crystal and crown replacement",
-        "Band and bracelet repair",
-        "Water resistance testing",
-        "Complete movement overhaul",
-        "Vintage watch restoration",
-      ],
-      startingAt: 75,
-      image: {
-        src: "/images/services/parts.jpeg",
-        alt: "watch repair tools and watch",
-      },
-    },
-    {
-      id: "jewelry-repair",
-      title: "Jewelry Repair & Restoration",
-      subtitle: "Professional care for your precious pieces",
-      features: [
-        "Ring sizing and reshaping",
-        "Stone setting and replacement",
-        "Prong retipping and repair",
-        "Chain and clasp repair",
-        "Pearl and bead restringing",
-        "Engraving and polishing",
-      ],
-      startingAt: 50,
-      image: {
-        src: "/images/services/repair.jpeg",
-        alt: "jewelry repair tools and ring",
-      },
-    },
-    {
-      id: "custom-design",
-      title: "Custom Design",
-      subtitle: "Bring your unique vision to life",
-      features: [
-        "Engagement and wedding rings",
-        "Anniversary and special occasion pieces",
-        "Family heirloom redesign",
-        "CAD design and 3D modeling",
-        "Stone sourcing and selection",
-        "Complete handcrafted fabrication",
-      ],
-      startingAt: null,
-      priceLabel: "Custom quote",
-      image: {
-        src: "/images/services/design.jpeg",
-        alt: "custom jewelry design sketches",
-      },
-    },
-  ];
+
   const frequentlyAskedQuestions = data?.frequentlyAskedQuestions ?? [];
   const proccessIntro = data?.processesIntro;
   const processSteps = data?.processSteps ?? [];

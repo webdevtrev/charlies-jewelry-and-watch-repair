@@ -17,29 +17,6 @@ import {
 import { PortableText } from "@portabletext/react";
 import { ptComponents } from "@/components/PortableText/portableTextComponents";
 
-const services = [
-  {
-    title: "Jewelry Repair",
-    description:
-      "Expert repair services for all types of jewelry, from rings to necklaces.",
-    link: "#",
-    icon: <FaGem />,
-  },
-  {
-    title: "Watch Repair",
-    description:
-      "Professional watch repair and maintenance for all brands and styles.",
-    link: "#",
-    icon: <FaRegClock />,
-  },
-  {
-    title: "Custom Jewelry Design",
-    description:
-      "Bespoke jewelry design services to create unique pieces tailored to your style.",
-    link: "#",
-    icon: <FaTools />,
-  },
-];
 const icons: Record<string, React.ReactElement> = {
   "jewelry-repair": <FaGem />,
   "watch-repair-and-restoration": <IoMdWatch />,
