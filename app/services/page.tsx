@@ -9,7 +9,6 @@ async function getServicesPage() {
 }
 
 async function getServices() {
-  console.log("test");
   return client.fetch(servicesQuery);
 }
 interface Service {
