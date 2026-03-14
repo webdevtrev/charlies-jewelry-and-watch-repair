@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./HeroSection.module.css";
 
 type BackgroundImage = { src: string; alt?: string };
@@ -50,7 +50,7 @@ const HeroSection: React.FC<Props> = ({
       const last = Math.max(0, (v.duration || 0) - 0.04);
       v.pause();
       v.currentTime = last;
-    } catch (e) {
+    } catch {
       // If seeking fails for any reason, just ensure the video is paused.
       v.pause();
     }
@@ -65,9 +65,13 @@ const HeroSection: React.FC<Props> = ({
             className={styles.video}
             src={backgroundVideo.src}
             poster={backgroundVideo.poster}
-            muted={backgroundVideo.muted ?? true}
+            muted={true}
             playsInline={backgroundVideo.playsInline ?? true}
             autoPlay
+            controls={false}
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload nofullscreen noplaybackrate"
             preload="auto"
             onEnded={handleVideoEnded}
           />

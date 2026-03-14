@@ -23,7 +23,7 @@ export const aboutPageQuery = `*[_type == "aboutPage"][0]{
   "content": { "title": content.title, "text": content.text, "imageUrl": content.image.asset->url }
 }`;
 
-export const contactInformationQuery = `*[_type == "contactInformation"][0]{phone, email, address, mapLink, hours}`;
+export const contactInformationQuery = `*[_type == "contactInformation"][0]{phone, email, address, mapLink, instagram, facebook, hours}`;
 
 export const servicesPageQuery = `*[_type == "servicesPage"][0]{"hero": {
     "headline": hero.headline,

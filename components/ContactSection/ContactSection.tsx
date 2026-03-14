@@ -112,7 +112,19 @@ const ContactSection: React.FC<{ contactInfo?: ContactInfo }> = ({
         <aside className={styles.right} aria-labelledby="consult-heading">
           <h3 id="consult-heading">Request Consultation</h3>
 
-          <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+          <form
+            className={styles.form}
+            name="consultation"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+          >
+            <input type="hidden" name="form-name" value="consultation" />
+            <p hidden>
+              <label>
+                Don’t fill this out if you’re human: <input name="bot-field" />
+              </label>
+            </p>
             <div className={styles.formRow}>
               <label htmlFor="name">Name</label>
               <input id="name" name="name" type="text" />
