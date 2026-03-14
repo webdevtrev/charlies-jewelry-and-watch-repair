@@ -64,7 +64,7 @@ const HeroSection: React.FC<Props> = ({
             ref={videoRef}
             className={styles.video}
             src={backgroundVideo.src}
-            // poster={backgroundVideo.poster}
+            poster={backgroundVideo.poster}
             muted={true}
             playsInline={backgroundVideo.playsInline ?? true}
             autoPlay
