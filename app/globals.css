@@ -36,7 +36,8 @@
 
   /* ---------- TYPOGRAPHY ---------- */
   --font-heading: "Lora", serif;
-  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  --font-body:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
 
   /* Font sizes (desktop) */
@@ -121,6 +122,11 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+.link {
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  margin-left: 0.25rem;
 }
 img {
   max-width: 100%;
