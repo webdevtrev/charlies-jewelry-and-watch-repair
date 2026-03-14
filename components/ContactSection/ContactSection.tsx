@@ -26,6 +26,43 @@ const ContactSection: React.FC<{ contactInfo?: ContactInfo }> = ({
   const email = contactInfo?.email;
   const address = contactInfo?.address;
   const hours = contactInfo?.hours ?? [];
+  const [formStatus, setFormStatus] = React.useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFormStatus("loading");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const body = new URLSearchParams();
+
+    formData.forEach((value, key) => {
+      if (typeof value === "string") {
+        body.append(key, value);
+      }
+    });
+
+    try {
+      const response = await fetch("/__forms.html", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: body.toString(),
+      });
+
+      if (response.ok) {
+        setFormStatus("success");
+        form.reset();
+      } else {
+        setFormStatus("error");
+      }
+    } catch {
+      setFormStatus("error");
+    }
+  };
 
   return (
     <section
@@ -116,8 +153,10 @@ const ContactSection: React.FC<{ contactInfo?: ContactInfo }> = ({
             className={styles.form}
             name="consultation"
             method="POST"
+            action="/__forms.html"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
           >
             <input type="hidden" name="form-name" value="consultation" />
             <p hidden>
@@ -157,7 +196,19 @@ const ContactSection: React.FC<{ contactInfo?: ContactInfo }> = ({
               <textarea id="message" name="message" rows={5} />
             </div>
 
-            <Button type="submit">Send Message</Button>
+            <Button type="submit" disabled={formStatus === "loading"}>
+              {formStatus === "loading" ? "Sending…" : "Send Message"}
+            </Button>
+            {formStatus === "success" && (
+              <p className="subtext" role="status">
+                Thanks! We’ll be in touch shortly.
+              </p>
+            )}
+            {formStatus === "error" && (
+              <p className="subtext" role="status">
+                Something went wrong. Please try again.
+              </p>
+            )}
           </form>
         </aside>
       </div>
