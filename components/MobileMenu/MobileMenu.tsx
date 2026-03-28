@@ -79,7 +79,7 @@ const MobileMenu: React.FC<Props> = ({
             <nav>
               <ul className={styles.list}>
                 <li>
-                  <a href="/home">Home</a>
+                  <a href="/">Home</a>
                 </li>
                 <li>
                   <a href="/services">Services</a>

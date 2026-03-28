@@ -42,7 +42,10 @@ const Navbar = async ({
       <ul className={styles.desktopMenu}>
         {menuItems.map((m) => (
           <li key={m}>
-            <a href={`/${m.toLowerCase()}`} className={styles.link}>
+            <a
+              href={m === "Home" ? "/" : `/${m.toLowerCase()}`}
+              className={styles.link}
+            >
               {m}
             </a>
           </li>
