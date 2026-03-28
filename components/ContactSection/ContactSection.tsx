@@ -45,11 +45,9 @@ const ContactSection: React.FC<{ contactInfo?: ContactInfo }> = ({
     });
 
     try {
-      const response = await fetch("/__forms.html", {
+      const response = await fetch("/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body.toString(),
       });
 
