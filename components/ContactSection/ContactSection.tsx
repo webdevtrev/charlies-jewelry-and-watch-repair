@@ -47,9 +47,7 @@ const ContactSection: React.FC<{ contactInfo?: ContactInfo }> = ({
     try {
       const response = await fetch("/__forms.html", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body.toString(),
       });
 
@@ -154,8 +152,6 @@ const ContactSection: React.FC<{ contactInfo?: ContactInfo }> = ({
             name="consultation"
             method="POST"
             action="/__forms.html"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
           >
             <input type="hidden" name="form-name" value="consultation" />
