@@ -1,21 +1,145 @@
-import styles from './page.module.css';
-import Logo from '../components/Logo/Logo';
+import React from "react";
+import ContactSection from "@/components/ContactSection/ContactSection";
+import CardService from "@/components/CardService/CardService";
+import HeroSection from "@/components/HeroSection/HeroSection";
+import CardProduct from "@/components/CardProduct/CardProduct";
+import { FaGem, FaRegClock, FaTools, FaAward } from "react-icons/fa";
+import { IoMdWatch } from "react-icons/io";
+import styles from "./home.module.css";
+import { Service } from "@/types/services";
 
-export default function Home() {
+import { client } from "@/sanity/lib/client";
+import {
+  homePageQuery,
+  contactInformationQuery,
+  minimalServicesQuery,
+} from "@/sanity/lib/queries";
+import { PortableText } from "@portabletext/react";
+import { ptComponents } from "@/components/PortableText/portableTextComponents";
+
+const icons: Record<string, React.ReactElement> = {
+  "jewelry-repair": <FaGem />,
+  "watch-repair-and-restoration": <IoMdWatch />,
+  "clock-repair-battery-operated-and-mechanical": <FaRegClock />,
+  "custom-design": <FaTools />,
+};
+
+async function getHomeData() {
+  return await client.fetch(homePageQuery);
+}
+
+async function getContactInformation() {
+  return await client.fetch(contactInformationQuery);
+}
+
+async function getServices() {
+  return await client.fetch(minimalServicesQuery);
+}
+
+export default async function Home() {
+  const data = await getHomeData();
+  const contactInfo = await getContactInformation();
+  const servicesData = await getServices();
+
+  const heroContent = {
+    headline: data?.hero?.headline,
+    subtext: data?.hero?.subtext,
+    backgroundImage: data?.hero?.backgroundImage
+      ? { src: data.hero.backgroundImage }
+      : undefined,
+    backgroundVideo: data?.hero?.backgroundVideo
+      ? {
+          src: data.hero.backgroundVideo.videoUrl,
+          poster: data.hero.backgroundVideo.posterUrl,
+        }
+      : undefined,
+  };
+  const featuredProducts = data?.featuredProducts ?? [];
+  const awards = data?.awards ?? [];
+  const experience = data?.experience ?? { title: "", paragraphs: [] };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Logo className={styles.title} />
-        <p className={styles.subtitle}>We're creating our website, come back soon.</p>
+    <main>
+      <HeroSection {...heroContent} />
 
-        <div className={styles.actions}>
-          <a className={styles.cta} href="mailto:daytonjewelry@gmail.com">Contact us</a>
+      {featuredProducts?.length > 0 && (
+        <section>
+          <div className="container">
+            <h2 className={styles.featuredProductsHeading}>
+              Featured Products
+            </h2>
+            <div className={styles.products}>
+              {featuredProducts?.map((product: any) => (
+                <CardProduct
+                  key={product._id}
+                  title={product.name}
+                  description={product.shortDescription}
+                  imageSrc={product.imageUrl}
+                  imageAlt={product.name}
+                  price={product.price}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section aria-labelledby="services-heading" className="section">
+        <div className="container">
+          <div className={styles.serviceIntro}>
+            <h2 id="services-heading" className="section-title">
+              Our Services
+            </h2>
+            <p>
+              From delicate restorations to custom creations, we bring decades
+              of expertise to every piece
+            </p>
+          </div>
+          <div className={styles.servicesGrid}>
+            {servicesData?.map((service: Service) => (
+              <CardService
+                key={service._id}
+                title={service.title}
+                description={service.subtitle}
+                link={"/services#" + service.slug}
+                icon={icons?.[service.slug] ?? <FaTools />}
+              />
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
 
-      <footer className={styles.footer}>
-        <small>© {new Date().getFullYear()} Charlie's Jewelry</small>
-      </footer>
-    </div>
+      <section className="section section-alt">
+        <div className={"container " + styles.experience}>
+          <div>
+            <h2>{experience.title}</h2>
+            {experience?.paragraphs && experience.paragraphs.length > 0 ? (
+              <PortableText
+                value={experience.paragraphs}
+                components={ptComponents}
+              />
+            ) : null}
+            <div className={styles.awards}>
+              {awards?.map((award: string, index: number) => (
+                <div key={index} className={styles.award}>
+                  <FaAward size={24} />
+                  <span>{award}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {experience.imageUrl && (
+            <div className={styles.experienceImageContainer}>
+              <img
+                src={experience.imageUrl}
+                alt={experience.title || "Experience image"}
+              />
+            </div>
+          )}
+        </div>
+      </section>
+
+      <ContactSection contactInfo={contactInfo} />
+    </main>
   );
 }

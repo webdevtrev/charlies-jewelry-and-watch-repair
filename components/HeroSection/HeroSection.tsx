@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./HeroSection.module.css";
 
-type BackgroundImage = { src: string; alt?: string };
+type BackgroundImage = { src: string; alt?: string; position?: string };
 type BackgroundVideo = {
   src: string;
   type?: string;
@@ -36,7 +36,7 @@ const HeroSection: React.FC<Props> = ({
       ? {
           backgroundImage: `linear-gradient(to left, rgba(0,0,0,0.9), rgba(0,0,0,0)), url(${backgroundImage.src})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: backgroundImage.position ?? "center",
           backgroundRepeat: "no-repeat",
         }
       : undefined;

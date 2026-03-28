@@ -19,7 +19,13 @@ export const homePageQuery = `*[_type == "homePage"][0]{
 }`;
 
 export const aboutPageQuery = `*[_type == "aboutPage"][0]{
-  "hero": { "headline": hero.headline, "backgroundImage": hero.backgroundImage.asset->url },
+  "hero": {
+    "headline": hero.headline,
+    "backgroundImage": {
+      "src": hero.backgroundImage.asset->url,
+      "hotspot": hero.backgroundImage.hotspot
+    }
+  },
   "content": { "title": content.title, "text": content.text, "imageUrl": content.image.asset->url }
 }`;
 

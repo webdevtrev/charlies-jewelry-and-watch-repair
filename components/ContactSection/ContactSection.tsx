@@ -181,9 +181,9 @@ const ContactSection: React.FC<{ contactInfo?: ContactInfo }> = ({
                 <option value="" disabled>
                   Select a service
                 </option>
-                <option value="jewelry-repair">Jewelry Repair</option>
-                <option value="watch-repair">Watch Repair</option>
-                <option value="appraisal">Appraisal</option>
+                <option value="Jewelry Repair">Jewelry Repair</option>
+                <option value="Watch Repair">Watch Repair</option>
+                <option value="Appraisal">Appraisal</option>
               </select>
             </div>
 
