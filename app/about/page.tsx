@@ -11,7 +11,20 @@ async function getAbout() {
 
 export default async function About() {
   const data = await getAbout();
-  const hero = data?.hero ?? { headline: "", backgroundImage: null };
+  const hero =
+    data?.hero ??
+    ({
+      headline: "",
+      backgroundImage: null,
+    } as {
+      headline: string;
+      backgroundImage:
+        | {
+            src?: string;
+            hotspot?: { x: number; y: number };
+          }
+        | null;
+    });
   const content = data?.content ?? { title: "", text: [], imageUrl: null };
 
   return (
@@ -19,7 +32,14 @@ export default async function About() {
       <HeroSection
         headline={hero.headline}
         backgroundImage={
-          hero.backgroundImage ? { src: hero.backgroundImage } : undefined
+          hero.backgroundImage?.src
+            ? {
+                src: hero.backgroundImage.src,
+                position: hero.backgroundImage.hotspot
+                  ? `${hero.backgroundImage.hotspot.x * 100}% ${hero.backgroundImage.hotspot.y * 100}%`
+                  : "center",
+              }
+            : undefined
         }
       />
       <section className="section">
